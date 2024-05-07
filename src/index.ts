@@ -13,20 +13,27 @@
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		console.log("Logging: " + request.url)
-	if(request.method == "POST") {
-	  	return new Response('Thank you for using the POST method.' , {
-			headers: {
-				'content-type': 'application/json',
-			},
-		  });
-		}
-		else{
-			return new Response('Sorry, you did not use the POST method.', {
-				headers: {
-					'content-type': 'application/json',
-				},
-			});
-		}
-	 }
-	}
+		
+	console.log("Logging: " + request.url)
+	
+	//My Lookuptable
+	const randomresponse = {
+
+		1: "Would you like a cheeseburger?",
+		2: "Would you like a salad?",
+		3: "Would you like a cold beverage?",
+		4: "Would you like another round?",
+	};
+
+	function getRandomIntInclusive(min, max) {
+		const minCeiled = Math.ceil(min);
+		const maxFloored = Math.floor(max);
+		return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+	  }
+	  
+	const ResponseNumber = getRandomIntInclusive(1,4);
+	const responsemap = randomresponse[ResponseNumber];
+
+	return new Response (responsemap);
+	
+	}}
